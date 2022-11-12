@@ -1,17 +1,12 @@
-"""
-Created on Sat Feb  24 20:18:05 2019
 
-@author: Raneem
-"""
 import numpy
 import random
 import time
-import sys
+import crossovers
 
 from solution import solution
 
-
-def crossoverPopulaton(population, scores, popSize, crossoverProbability, keep):
+def crossoverPopulaton(population, scores, popSize, crossoverProbability, keep, crossover_type):
     """
     The crossover of all individuals
 
@@ -44,7 +39,8 @@ def crossoverPopulaton(population, scores, popSize, crossoverProbability, keep):
         crossoverLength = min(len(parent1), len(parent2))
         parentsCrossoverProbability = random.uniform(0.0, 1.0)
         if parentsCrossoverProbability < crossoverProbability:
-            offspring1, offspring2 = uniform_crossover(crossoverLength, parent1, parent2)
+            #! CROSSOVER BURADA SEÇİLİYOR.
+            offspring1, offspring2 =  crossovers.selectCrossover(crossover_type,crossoverLength, parent1, parent2)
             #print("OFFSPRING 1: ", offspring1, "\nOFFSPRING 2: ", offspring2)
         else:
             offspring1 = parent1.copy()
@@ -194,99 +190,6 @@ def rouletteWheelSelectionId(scores, popSize):
             return individualId
 
 
-def crossover(individualLength, parent1, parent2):
-    """
-    The crossover operator of a two individuals
-
-    Parameters
-    ----------
-    individualLength: int
-        The maximum index of the crossover
-    parent1 : list
-        The first parent individual of the pair
-    parent2 : list
-        The second parent individual of the pair
-
-    Returns
-    -------
-    list
-        offspring1: The first updated parent individual of the pair
-    list
-        offspring2: The second updated parent individual of the pair
-    """
-
-    # The point at which crossover takes place between two parents.
-    crossover_point = random.randint(0, individualLength - 1)
-    # The new offspring will have its first half of its genes taken from the first parent and second half of its genes taken from the second parent.
-    offspring1 = numpy.concatenate(
-        [parent1[0:crossover_point], parent2[crossover_point:]]
-    )
-    # The new offspring will have its first half of its genes taken from the second parent and second half of its genes taken from the first parent.
-    offspring2 = numpy.concatenate(
-        [parent2[0:crossover_point], parent1[crossover_point:]]
-    )
-
-    return offspring1, offspring2
-
-#generates two point crossover and returns offsprings
-def twopoint_crossover(individualLength, parent1, parent2):
-    # The point at which crossover takes place between two parents.
-    crossover_point1 = random.randint(0, individualLength - 1)
-    crossover_point2 = random.randint(0, individualLength - 1)
-
-
-    first_point = crossover_point1
-    second_point = crossover_point2
-
-    #must be first point < second point
-    #compare if selected first point bigger than second point
-    if(crossover_point1>crossover_point2):
-        first_point = crossover_point2
-        second_point = crossover_point1
-    
-    elif(crossover_point1<crossover_point2):
-        first_point = crossover_point1
-        second_point = crossover_point2
-
-    #print("first point: ", first_point, "\t second point: ", second_point)
-    
-    # The new offspring will have its first half of its genes taken from the first parent and second half of its genes taken from the second parent.
-    
-    temp_offspring1=numpy.concatenate(
-        [parent1[0:first_point], parent2[first_point:second_point]]
-    )
-    offspring1 = numpy.concatenate(
-        ((temp_offspring1), parent1[second_point:]
-    ))
-    # The new offspring will have its first half of its genes taken from the second parent and second half of its genes taken from the first parent.
-    temp_offspring2=numpy.concatenate(
-        [parent2[0:first_point], parent1[first_point:second_point]]
-    )
-    offspring2 = numpy.concatenate(
-        ((temp_offspring2), parent2[second_point:]
-    ))
-
-    return offspring1, offspring2
-
-def uniform_crossover(crossoverLength,parent1,parent2):
-    #generates random mask array
-    mask = numpy.random.randint(0,2,crossoverLength)
-    print("Mask: ", mask)
-
-    offspring1 = [None] * crossoverLength
-    offspring2 = [None] * crossoverLength
-    for i in range(crossoverLength):
-        # if mask index [i] is 0, for offspring1[i]=parent1[i]
-        # if mask index [i] is 0, for offspring2[i]=parent2[i]
-        if mask[i] == 0:
-            offspring1[i] = parent1[i]
-            offspring2[i] = parent2[i]
-        elif mask[i] == 1:
-            offspring1[i] = parent2[i]
-            offspring2[i] = parent1[i]
-
-
-    return offspring1, offspring2
 
 def mutation(offspring, individualLength, lb, ub):
     """
@@ -407,8 +310,8 @@ def sortPopulation(population, scores):
 
     return population, scores
 
-
-def GA(objf, lb, ub, dim, popSize, iters):
+#func, -500, 500, dim, pop_sizes, iteration_number,mut_prob,crossover_type,selection_type
+def GA(objf, lb, ub, dim, popSize, iters, mut_prob, cross_type,selection_type):
 
     """
     This is the main method which implements GA
@@ -463,7 +366,7 @@ def GA(objf, lb, ub, dim, popSize, iters):
     for l in range(iters):
 
         # crossover
-        ga = crossoverPopulaton(ga, scores, popSize, cp, keep)
+        ga = crossoverPopulaton(ga, scores, popSize, cp, keep, cross_type)
 
         # mutation
         mutatePopulaton(ga, popSize, mp, keep, lb, ub)
