@@ -7,8 +7,6 @@ import functions
 from enums import enumFunctions, enumCrossovers, enumSelections, enumDecreaseTemp
 from algorithms import GeneticAlgorithm as GA, SimulatedAnnealing as SA, GreyWolfOptimization as GWO, HillClimbing as HC, HarmonySearchAlgorithm as HS
 
-#! TODO: lb ve ub'ler dinamik alınacak
-
 
 num_of_run = 2
 dim = 5
