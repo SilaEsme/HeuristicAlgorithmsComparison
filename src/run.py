@@ -12,8 +12,8 @@ num_of_run = 5
 dim = 30
 results = []
 arr_functions = enumFunctions.Functions
-pop_sizes = [250, 500, 1000, 5000, 10000]
-num_of_generations = [250, 500, 1000, 1500, 2000]
+pop_sizes = [250, 500, 1000, 3000]
+num_of_generations = [250, 500, 1000, 1500]
 
 workbook = openpyxl.Workbook()
 workbook.remove(workbook.get_sheet_by_name('Sheet'))
@@ -133,6 +133,7 @@ def run_gwo():
 
 
 def run_hc():
+    num_of_generations = [250, 500, 1000, 1500, 2000, 5000]
     results.clear()
     workbook.create_sheet("HC")
     worksheet = workbook.get_sheet_by_name("HC")
@@ -164,7 +165,7 @@ def run_hc():
 
 def run_hs():
     results.clear()
-    arr_hms = [250, 500, 1000, 5000, 10000]
+    arr_hms = [250, 500, 1000, 5000]
     arr_bw = [0.1, 0.15, 0.2, 0.25, 0.30]
     arr_hmcr = [0.90, 0.92, 0.95, 0.97, 0.99]
     arr_par = [0.15, 0.2, 0.25, 0.3, 0.35, 0.4]
