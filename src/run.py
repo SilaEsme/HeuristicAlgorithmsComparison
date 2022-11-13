@@ -15,8 +15,6 @@ arr_functions = enumFunctions.Functions
 pop_sizes = [250, 500, 1000, 3000]
 num_of_generations = [250, 500, 1000, 1500]
 
-workbook = openpyxl.Workbook()
-workbook.remove(workbook.get_sheet_by_name('Sheet'))
 
 
 def run_ga():
@@ -27,8 +25,8 @@ def run_ga():
     crossover_types = enumCrossovers.Crossovers
     selection_types = enumSelections.Selections
 
-    workbook.create_sheet("GA")
-    worksheet = workbook.get_sheet_by_name("GA")
+    workbook = openpyxl.Workbook()
+    worksheet = workbook.active
     worksheet.append(("Function", "Number of Generation", "Mutation Probability", "Crossover Type",
                      "Selection Type", "Best Fitness", "Best Average Fitness", "Std_Dev Fitness"))
 
@@ -60,6 +58,7 @@ def run_ga():
                             results.clear()
 
     excelHelper.FillBest(worksheet, best_val)
+    workbook.save('ga_results.xlsx')
 
 
 def run_sa():
@@ -67,8 +66,9 @@ def run_sa():
     initial_temps = [1000, 5000, 10000]
     decrease_temp_types = enumDecreaseTemp.DecreaseTypes
 
-    workbook.create_sheet("SA")
-    worksheet = workbook.get_sheet_by_name("SA")
+    workbook = openpyxl.Workbook()
+    worksheet = workbook.active
+
     worksheet.append(("Function", "Initial Temperature", "Decrease Temperature Type",
                      "Best Fitness", "Best Average Fitness", "Std_Dev Fitness"))
 
@@ -97,12 +97,14 @@ def run_sa():
 
                 results.clear()
     excelHelper.FillBest(worksheet, best_val)
+    workbook.save('sa_results.xlsx')
 
 
 def run_gwo():
     results.clear()
-    workbook.create_sheet("GWO")
-    worksheet = workbook.get_sheet_by_name("GWO")
+
+    workbook = openpyxl.Workbook()
+    worksheet = workbook.active
     worksheet.append(("Function", "Population Size", "Number of Generations",
                      "Best Fitness", "Best Average Fitness", "Std_Dev Fitness"))
 
@@ -130,13 +132,15 @@ def run_gwo():
                 results.clear()
 
     excelHelper.FillBest(worksheet, best_val)
+    workbook.save('gwo_results.xlsx')
 
 
 def run_hc():
     num_of_generations = [250, 500, 1000, 1500, 2000, 5000]
     results.clear()
-    workbook.create_sheet("HC")
-    worksheet = workbook.get_sheet_by_name("HC")
+
+    workbook = openpyxl.Workbook()
+    worksheet = workbook.active
     worksheet.append(("Function", "Number of Generations",
                      "Best Fitness", "Best Average Fitness", "Std_Dev Fitness"))
 
@@ -160,7 +164,9 @@ def run_hc():
                 #    best_val = avg
 
                 # results.clear()
-                # excelHelper.FillBest(worksheet,best_val)
+
+    # excelHelper.FillBest(worksheet,best_val)
+    # workbook.save('hc_results.xlsx')
 
 
 def run_hs():
@@ -170,8 +176,8 @@ def run_hs():
     arr_hmcr = [0.90, 0.92, 0.95, 0.97, 0.99]
     arr_par = [0.15, 0.2, 0.25, 0.3, 0.35, 0.4]
 
-    workbook.create_sheet("HS")
-    worksheet = workbook.get_sheet_by_name("HS")
+    workbook = openpyxl.Workbook()
+    worksheet = workbook.active
     worksheet.append(("Function", "HMS", "BW", "HMCR", "PAR",
                      "Best Fitness", "Best Average Fitness", "Std_Dev Fitness"))
 
@@ -200,6 +206,7 @@ def run_hs():
                         # results.clear()
 
     # excelHelper.FillBest(worksheet,best_val)
+    # workbook.save('hs_results.xlsx')
 
 
 def main():
@@ -208,7 +215,6 @@ def main():
     run_gwo()
     # run_hc()
     # run_hs()
-    workbook.save('results.xlsx')
 
 
 if __name__ == "__main__":
