@@ -8,12 +8,12 @@ from enums import enumFunctions, enumCrossovers, enumSelections, enumDecreaseTem
 from algorithms import GeneticAlgorithm as GA, SimulatedAnnealing as SA, GreyWolfOptimization as GWO, HillClimbing as HC, HarmonySearchAlgorithm as HS
 
 
-num_of_run = 2
-dim = 5
+num_of_run = 5
+dim = 30
 results = []
 arr_functions = enumFunctions.Functions
-pop_sizes = [10, 20, 1000, 5000, 10000]
-num_of_generations = [20, 30, 1000, 1500, 2000]
+pop_sizes = [250, 500, 1000, 5000, 10000]
+num_of_generations = [250, 500, 1000, 1500, 2000]
 
 workbook = openpyxl.Workbook()
 workbook.remove(workbook.get_sheet_by_name('Sheet'))
