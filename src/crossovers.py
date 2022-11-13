@@ -54,8 +54,9 @@ def twopoint_crossover(individualLength, parent1, parent2):
     first_point = crossover_point1
     second_point = crossover_point2
 
-    #must be first point < second point
-    #compare if selected first point bigger than second point
+    # Must be first point < second point
+    # Compare if selected first point bigger than second point
+
     if(crossover_point1>crossover_point2):
         first_point = crossover_point2
         second_point = crossover_point1
@@ -64,8 +65,7 @@ def twopoint_crossover(individualLength, parent1, parent2):
         first_point = crossover_point1
         second_point = crossover_point2
 
-    #print("first point: ", first_point, "\t second point: ", second_point)
-    
+
     # The new offspring will have its first half of its genes taken from the first parent and second half of its genes taken from the second parent.
     
     temp_offspring1=numpy.concatenate(
