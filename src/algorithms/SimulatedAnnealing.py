@@ -64,7 +64,7 @@ def simulated_annealing(min_values = [-5,-5], max_values = [5,5], mu = 0, sigma 
     Temperature = float(initial_temperature)
     while (Temperature > final_temperature):
         if (verbose == True):
-            print('Temperature = ',colored(round(Temperature, 4),"yellow"), ' ; ' , 'f(x) = ', colored(round(best[0, -1], 4),'green'))
+            print(f'Temperature = {Temperature} ; f(x) = {best[0, -1]}')
         fx_old    =  guess[0,-1]    
         #e = bozulma miktarı? 
         epson     = epson_vector(guess, mu = mu, sigma = sigma)
