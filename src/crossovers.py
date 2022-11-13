@@ -1,10 +1,12 @@
+import random
+import numpy
 from algorithms import GeneticAlgorithm as GA
 
 def selectCrossover(cbIndex,individualLength,parent1,parent2):
         switcher = {
-        0: lambda : crossover(individualLength,parent1,parent2),
-        1: lambda : twopoint_crossover(individualLength,parent1,parent2),
-        2: lambda : uniform_crossover(individualLength,parent1,parent2),
+        0: crossover(individualLength,parent1,parent2),
+        1: twopoint_crossover(individualLength,parent1,parent2),
+        2: uniform_crossover(individualLength,parent1,parent2),
     }
         return switcher.get(cbIndex, "nothing")
 
@@ -85,7 +87,6 @@ def twopoint_crossover(individualLength, parent1, parent2):
 def uniform_crossover(crossoverLength,parent1,parent2):
     #generates random mask array
     mask = numpy.random.randint(0,2,crossoverLength)
-    print("Mask: ", mask)
 
     offspring1 = [None] * crossoverLength
     offspring2 = [None] * crossoverLength
