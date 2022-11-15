@@ -9,5 +9,5 @@ class Functions(enum.IntEnum):
     schwefel = 5
     sphere = 6
     zakharov = 7
-    damavandi = 8
-    rotated_hyper_ellipsoid = 9
+    # damavandi = 8
+    # rotated_hyper_ellipsoid = 9
