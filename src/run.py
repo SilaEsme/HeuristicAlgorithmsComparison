@@ -6,12 +6,12 @@ from enums import enumFunctions, enumCrossovers, enumSelections, enumDecreaseTem
 from algorithms import GeneticAlgorithm as GA, SimulatedAnnealing as SA, GreyWolfOptimization as GWO, HillClimbing as HC, HarmonySearchAlgorithm as HS
 
 
-num_of_run = 2 # 5
-dim =  10 # 30
+num_of_run = 5
+dim = 30
 results = []
 arr_functions = enumFunctions.Functions
-pop_sizes = [100] # [250, 500, 1000, 3000]
-num_of_generations = [100] # [250, 500, 1000, 1500]
+pop_sizes = [250, 500, 1000]
+num_of_generations = [250, 500, 1000]
 
 
 
@@ -20,7 +20,7 @@ def run_ga():
     func_name = None
     result = None
     best_val = None
-    mut_probs = [0.01] # [0.01, 0.02, 0.05, 0.1, 0.15]
+    mut_probs = [0.01, 0.02, 0.05, 0.1, 0.15]
     crossover_types = enumCrossovers.Crossovers
     selection_types = enumSelections.Selections
 
