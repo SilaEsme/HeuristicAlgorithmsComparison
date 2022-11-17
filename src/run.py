@@ -54,6 +54,7 @@ def run_ga():
                                               mut_prob, crossover_types(
                                                   crossover_type).name,
                                               selection_types(selection_type).name, result.best, avg, std_dev))
+                            workbook.save('ga_results.xlsx')
 
                             if best_val != None and best_val > avg:
                                 best_val = avg
@@ -63,7 +64,6 @@ def run_ga():
                             results.clear()
 
         excelHelper.FillBest(worksheet, best_val)
-    
     workbook.save('ga_results.xlsx')
 
 
@@ -101,6 +101,7 @@ def run_sa():
 
                 worksheet.append((arr_functions(func).name, initial_temp,
                                   decrease_temp_type, result.best, avg, std_dev))
+                workbook.save('sa_results.xlsx')
 
                 if best_val != None and best_val > avg:
                     best_val = avg
@@ -110,7 +111,6 @@ def run_sa():
                 results.clear()
 
         excelHelper.FillBest(worksheet, best_val)
-    workbook.save('sa_results.xlsx')
 
 
 def run_gwo():
@@ -144,6 +144,7 @@ def run_gwo():
 
                 worksheet.append((arr_functions(func).name, pop_size,
                                   num_of_gen, result.best, avg, std_dev))
+                workbook.save('gwo_results.xlsx')
 
                 if best_val != None and best_val > avg:
                     best_val = avg
@@ -153,7 +154,6 @@ def run_gwo():
                 results.clear()
 
         excelHelper.FillBest(worksheet, best_val)
-    workbook.save('gwo_results.xlsx')
 
 
 def run_hc():
@@ -185,6 +185,7 @@ def run_hc():
                 #std_dev = statistics.stdev(results)
 
                 #worksheet.append((arr_functions(func).name, num_of_gen, result.best,avg,std_dev))
+                # workbook.save('hc_results.xlsx')
 
                 # if best_val != None and best_val > avg:
                 #    best_val = avg
@@ -194,7 +195,6 @@ def run_hc():
                 # results.clear()
 
         # excelHelper.FillBest(worksheet,best_val)
-    # workbook.save('hc_results.xlsx')
 
 
 def run_hs():
@@ -232,6 +232,7 @@ def run_hs():
                         #std_dev = statistics.stdev(results)
 
                         #worksheet.append((arr_functions(func).name, num_of_gen, result.best,avg,std_dev))
+                        # workbook.save('hs_results.xlsx')
 
                         # if best_val != None and best_val > avg:
                         #    best_val = avg
@@ -241,7 +242,6 @@ def run_hs():
                         # results.clear()
 
         # excelHelper.FillBest(worksheet,best_val)
-    # workbook.save('hs_results.xlsx')
 
 
 def main():
