@@ -1,5 +1,6 @@
 import statistics
 import openpyxl
+from openpyxl import load_workbook
 import excelHelper
 import functions
 from enums import enumFunctions, enumCrossovers, enumSelections, enumDecreaseTemp
@@ -24,7 +25,7 @@ def run_ga():
     crossover_types = enumCrossovers.Crossovers
     selection_types = enumSelections.Selections
 
-    workbook = openpyxl.Workbook()
+    workbook = load_workbook('ga_results.xlsx')
     workbook.remove(workbook.get_sheet_by_name('Sheet'))
 
     for func in arr_functions:
@@ -69,12 +70,14 @@ def run_ga():
 
 def run_sa():
     results.clear()
+    best_val = None
     func_name = None
     initial_temps = [1000, 5000, 10000]
     decrease_temp_types = enumDecreaseTemp.DecreaseTypes
 
-    workbook = openpyxl.Workbook()
-    workbook.remove(workbook.get_sheet_by_name('Sheet'))
+    #workbook = openpyxl.Workbook()
+    workbook = load_workbook('sa_results.xlsx')
+    workbook.remove(workbook.get_sheet_by_name('rosenbrock'))
 
 
     for func in arr_functions:
@@ -94,8 +97,9 @@ def run_sa():
                                                     max_values=[ub for _ in range(dim)], mu=0,
                                                     sigma=1, initial_temperature=initial_temp,
                                                     final_temperature=0.0001, alpha=0.1, target_function=obj_func, verbose=True, decrease_type=decrease_temp_type)
-                    results.append(result)
-                #!TO
+                    results.append(result.best)
+        
+
                 avg = statistics.mean(results)
                 std_dev = statistics.stdev(results)
 
@@ -245,8 +249,8 @@ def run_hs():
 
 
 def main():
-    run_ga()
-    # run_sa()
+    # run_ga()
+    run_sa()
     # run_gwo()
     # run_hc()
     # run_hs()

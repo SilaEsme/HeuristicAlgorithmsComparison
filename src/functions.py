@@ -16,8 +16,8 @@ def selectFunction(cbIndex):
         5: schwefel,
         6: sphere,
         7: zakharov,
-       # 8: damavandi,
-       # 9: rotated_hyper_ellipsoid,
+        8: damavandi,
+        9: rotated_hyper_ellipsoid,
     }
     return switcher.get(cbIndex, "nothing")
 
@@ -32,8 +32,8 @@ def getBoundaries(cbIndex, dim):
         5: (lambda : [-500, 500])(),
         6: (lambda : [-5.12, 5.12])(),
         7: (lambda : [-5, 10])(),
-        # 8: (lambda : [0, 14])(),
-        # 9: (lambda : [-65536, 65536])()
+        8: (lambda : [0, 14])(),
+        9: (lambda : [-65536, 65536])()
     }
     return switcher.get(cbIndex, "nothing")
 

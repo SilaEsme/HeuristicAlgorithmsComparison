@@ -11,10 +11,14 @@
 
 # Required Libraries
 import math
+import time
 import numpy  as np
 import random
 import os
 from enums import enumDecreaseTemp
+
+from solution import solution
+
 
 ############################################################################
 
@@ -40,7 +44,7 @@ def epson_vector(guess, mu = 0, sigma = 1):
         epson[0,j] = float(np.random.normal(mu, sigma, 1))
     return epson
 
-# Function: Updtade Solution
+# Function: Update Solution
 def update_solution(guess, epson, min_values = [-5,-5], max_values = [5,5], target_function = target_function):
     updated_solution = np.copy(guess)
     for j in range(0, guess.shape[1] - 1):
@@ -62,6 +66,11 @@ def simulated_annealing(min_values = [-5,-5], max_values = [5,5], mu = 0, sigma 
     best  = np.copy(guess)
     fx_best = guess[0,-1]
     Temperature = float(initial_temperature)
+    s = solution()
+
+    timerStart = time.time()
+    s.startTime = time.strftime("%Y-%m-%d-%H-%M-%S")
+    
     while (Temperature > final_temperature):
         if (verbose == True):
             print(f'Temperature = {Temperature} ; f(x) = {best[0, -1]}')
@@ -85,5 +94,12 @@ def simulated_annealing(min_values = [-5,-5], max_values = [5,5], mu = 0, sigma 
         elif decrease_type == enumDecreaseTemp.DecreaseTypes.arithmetic:
             Temperature -= alpha
 
-    return best
+        s.result.append(best[0, -1])
+
+    timerEnd = time.time()
+    s.endTime = time.strftime("%Y-%m-%d-%H-%M-%S")
+    s.executionTime = timerEnd - timerStart
+    s.best = best[0, -1]
+    #best
+    return s
 ############################################################################
